@@ -14,7 +14,7 @@ function addDestinationInfo(document, name, diameter, star, distance, moons, ima
                 </ol>
                 <img src="">
    */
-    let document = document.getElementById("missionTarget");
+    document = document.getElementById("missionTarget");
     document.innerHtml = `
         <h2>Mission Destination</h2>
         <ol>
@@ -25,7 +25,8 @@ function addDestinationInfo(document, name, diameter, star, distance, moons, ima
             <li>Number of Moons: ${moons}</li>
         </ol>
         <img src="${imageUrl}">
-    `
+    `;
+    console.log(document);
 }
 
 function validateInput(testInput) {
@@ -57,11 +58,56 @@ async function myFetch() {
     let planetsReturned;
 
     planetsReturned = await fetch("https://handlers.education.launchcode.org/static/planets.json").then( function(response) {
-        response.json().then(function(json)){
-            // call addDestinationInfo function or call pickPlanet Function?
-        }        
-});
+        // console.log(response);
+        // console.log(json());
+        //I think response.json() is right - a promise that parses a json into a JavaScript object.
+        // response.json();
+        // response.json().then(function(response){
+        //     return response.json();
+        // });
+        // console.log(response.json());
 
+        //this is GOOD!: getting just the data I believe in an Array (as far as I read the console),
+        // but I get it twice, but I need to keep line 59 the same as it was given (thought maybe twice bc of the double .then 's)
+        // response.json().then(data => {
+        //     console.log(data);
+        //     console.log(data[1]);
+        //     // return data;
+        // })
+
+        return response.json()
+
+
+        // console.log(Promise.resolve(response.json()));
+
+
+        // response.json().then(function(json){
+        //     // call addDestinationInfo function or call pickPlanet Function?
+        //     // console.log(response);
+        //     // console.log(json);
+        //     // console.log(pickPlanet(json));
+
+        //     // const randomPlanet = pickPlanet(json);
+        //     // console.log(randomPlanet);
+        //     // console.log(randomPlanet.name);
+
+        //     // addDestinationInfo(randomPlanet, randomPlanet.name, randomPlanet.diameter, randomPlanet.star, randomPlanet.distance, randomPlanet.moons, randomPlanet.imageUrl);
+
+        //     // return json;
+        //     // pickPlanet(json);
+        //     json;
+        // });   
+        // console.log(planetsReturned);
+        // console.log(json);
+    });
+    // console.log(typeof planetsReturned);
+    // console.log(typeof 10);
+    // console.log(planetsReturned);
+
+    // planetsReturned = planetsReturned.then(data => {
+    //     console.log(data);
+    //     return data;
+    // });
     return planetsReturned;
 }
 
