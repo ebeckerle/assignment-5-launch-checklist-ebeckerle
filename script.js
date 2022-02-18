@@ -105,13 +105,14 @@ window.addEventListener("load", function() {
        console.log(listedPlanets);
        // Below this comment call the appropriate helper functions to pick a planet fom the list of planets and add that information to your destination.
        // call pickPlanet() function 1st
-       pickPlanet(listedPlanets);
-       console.log(pickPlanet(listedPlanets));
-       let chosenPlanet = pickPlanet(listedPlanets);
+    //    pickPlanet(listedPlanets);
+    //    console.log(pickPlanet(listedPlanets));
+       const chosenPlanet = pickPlanet(listedPlanets);
     
-       // call addDestination info with the object from the pickPlanet function
+       // call addDestination info with the array from the pickPlanet function
        console.log(chosenPlanet.name);
-       addDestinationInfo(chosenPlanet, chosenPlanet.name, chosenPlanet.diameter, chosenPlanet.star, chosenPlanet.addEventListener, chosenPlanet.moons, chosenPlanet.imageUrl);
+    
+       addDestinationInfo("document", chosenPlanet.name, chosenPlanet.diameter, chosenPlanet.star, chosenPlanet.distance, chosenPlanet.moons, chosenPlanet.imageUrl);
    });
-   
+
 });
