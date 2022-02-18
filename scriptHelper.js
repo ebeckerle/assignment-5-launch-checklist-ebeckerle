@@ -34,7 +34,7 @@ function addDestinationInfo(list, name, diameter, star, distance, moons, imageUr
 
 function validateInput(testInput) {
     if (isNaN(testInput)){
-        return "Not a number"; 
+        return "Not a Number"; 
     } else if (testInput === ""){
         return "Empty";
     } else if (!isNaN(testInput)){
@@ -47,7 +47,7 @@ function formSubmission(document, list, pilot, copilot, fuelLevel, cargoLevel) {
     if (validateInput(pilot) == "Empty" || validateInput(copilot) == "Empty" || validateInput(fuelLevel) == "Empty" || validateInput(cargoLevel) == 
     "Empty"){
         alert("All Fields are Required.");
-    }else if (validateInput(fuelLevel) == "Not a number" || validateInput(cargoLevel) == "Not a number"){
+    }else if (validateInput(fuelLevel) == "Not a Number" || validateInput(cargoLevel) == "Not a Number"){
         alert ("Please enter a Number for Fuel Level and Cargo Mass.");
     }
 

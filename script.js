@@ -14,6 +14,7 @@ window.addEventListener("load", function() {
 
     const launchStatus = document.getElementById("launchStatus")
 
+    list.style.visibility = "hidden";
 
     form.addEventListener("submit", function (event){
         
@@ -53,8 +54,8 @@ window.addEventListener("load", function() {
             launchStatus.style.color = "red";
         }
 
-        if (Number(cargoLevel.value) > 10000 && Number(cargoLevel.value) > 10000){
-            console.log("Cargo Mass too high");
+        if (Number(cargoLevel.value) > 10000 && Number(fuelLevel.value) < 10000){
+            console.log("Cargo Mass too high and Fuel Level low");
             list.style.visibility = "visible";
             list.innerHTML = `
                 <ol>
@@ -83,6 +84,8 @@ window.addEventListener("load", function() {
             launchStatus.innerHTML = `Shuttle is ready for launch`;    
             launchStatus.style.color = "green";
         }
+
+        if ()
 
 
 
