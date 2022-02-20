@@ -1,4 +1,7 @@
 // Write your JavaScript code here!
+try{ const {myFetch} = require("./scriptHelper.js");
+} catch(error) {}
+
 
 window.addEventListener("load", function() {
 
@@ -6,89 +9,64 @@ window.addEventListener("load", function() {
 
 
     //when working with Angela we put ".value", after all of pilot thru cargoLevel, to get the user input, but now going thru and console logging them, they're blank becuase on the window load they are not inputed by the user yet, but because they are const, i can't reassign them as new variables?, I just don't know hwo I know that theses are working
+    // const document = window.document
+    // const container = document.getElementById("launchStatusCheck");
+    const myDoc = document;
     const list = document.getElementById("faultyItems");
     const pilot = document.querySelector("input[name=pilotName]");
     const copilot = document.querySelector("input[name=copilotName]");
     const fuelLevel = document.querySelector("input[name=fuelLevel]");
     const cargoLevel = document.querySelector("input[name=cargoMass]");
+    // const h2 = document.getElementById("launchStatus");
+    let missionTarget = document.getElementById("missionTarget");
 
-    const launchStatus = document.getElementById("launchStatus")
+    // missionTarget.innerHTML += `
+    //     <h2>Mission Destination</h2>
+    //         <ol>
+    //             <li>Name: Trial</li>
+    //             <li>Diameter: Trial</li>
+    //             <li>Star: Trial</li>
+    //             <li>Distance from Earth: Trial</li>
+    //             <li>Number of Moons: Trial</li>
+    //         </ol>
+    //     `;
+    // console.log(missionTarget.innerHTML);
+
+    // console.log(container);
+    // console.log(container.innerHTML);
 
     list.style.visibility = "hidden";
+    // container.style.visibility = "hidden";
+
+
 
     form.addEventListener("submit", function (event){
         
+        list.style.visibility = "hidden";
+        // container.style.visibility = "hidden";
+
         // working with formSubmission function here we use the event prevent default
         event.preventDefault();
 
+        validate(pilot.value, copilot.value, Number(fuelLevel.value), Number(cargoLevel.value));
 
-        formSubmission("document", list, pilot.value, copilot.value, fuelLevel.value, cargoLevel.value);
-        
 
-        if (Number(fuelLevel.value) < 10000 ){
-            console.log("Fuel Level low");
-            list.style.visibility = "visible";
-            list.innerHTML = `
-                <ol>
-                    <li id="pilotStatus" data-testid="pilotStatus">${pilot.value}</li>
-                    <li id="copilotStatus" data-testid="copilotStatus">${copilot.value}</li>
-                    <li id="fuelStatus" data-testid="fuelStatus">There is not enough fuel for the journey.</li>
-                    <li id="cargoStatus" data-testid="cargoStatus">${cargoLevel.value} kg</li>
-                </ol>
-            `;
-            launchStatus.innerHTML = `Shuttle not ready for launch`;
-            launchStatus.style.color = "red";
-        }
-        if (Number(cargoLevel.value) > 10000){
-            console.log("Cargo Mass too high");
-            list.style.visibility = "visible";
-            list.innerHTML = `
-                <ol>
-                    <li id="pilotStatus" data-testid="pilotStatus">${pilot.value}</li>
-                    <li id="copilotStatus" data-testid="copilotStatus">${copilot.value}</li>
-                    <li id="fuelStatus" data-testid="fuelStatus">${fuelLevel.value} liters</li>
-                    <li id="cargoStatus" data-testid="cargoStatus">There is too much mass for the shuttle to take off.</li>
-                </ol>
-            `;
-            launchStatus.innerHTML = `Shuttle not ready for launch`;
-            launchStatus.style.color = "red";
+        event.preventDefault();
+
+        if (validate(pilot.value, copilot.value, Number(fuelLevel.value), Number(cargoLevel.value)) !== "Validated"){
+            console.log("not valid");
+            list.style.visibility = "hidden";
+
+        }else{
+            console.log("run formSubmission function")
+            list.style.visibility = "hidden";
+            // container.style.visibility = "hidden";
+            formSubmission(myDoc, list, pilot.value, copilot.value, fuelLevel.value, cargoLevel.value);
         }
 
-        if (Number(cargoLevel.value) > 10000 && Number(fuelLevel.value) < 10000){
-            console.log("Cargo Mass too high and Fuel Level low");
-            list.style.visibility = "visible";
-            list.innerHTML = `
-                <ol>
-                    <li id="pilotStatus" data-testid="pilotStatus">${pilot.value}</li>
-                    <li id="copilotStatus" data-testid="copilotStatus">${copilot.value}</li>
-                    <li id="fuelStatus" data-testid="fuelStatus">There is not enough fuel for the journey.</li>
-                    <li id="cargoStatus" data-testid="cargoStatus">There is too much mass for the shuttle to take off.</li>
-                </ol>
-            `;
-            launchStatus.innerHTML = `Shuttle not ready for launch`;
-            launchStatus.style.color = "red";
-        }
-        
-        if (Number(cargoLevel.value) < 10000 && Number(cargoLevel.value) < 10000 && formSubmission("document", list, pilot.value, copilot.value, fuelLevel.value, cargoLevel.value) === "Validated"){
-            console.log("update Html elements here for ordered list.");
-            console.log(list);
-            list.style.visibility = "visible";
-            list.innerHTML = `
-                <ol>
-                    <li id="pilotStatus" data-testid="pilotStatus">${pilot.value}</li>
-                    <li id="copilotStatus" data-testid="copilotStatus">${copilot.value}</li>
-                    <li id="fuelStatus" data-testid="fuelStatus">${fuelLevel.value} liters</li>
-                    <li id="cargoStatus" data-testid="cargoStatus">${cargoLevel.value} kg</li>
-                </ol>
-            `;
-            launchStatus.innerHTML = `Shuttle is ready for launch`;    
-            launchStatus.style.color = "green";
-        }
-
-        if ()
-
-
-
+        // list.style.visibility = "hidden";
+        // container.style.visibility = "hidden";
+        // formSubmission(window.document, list, pilot.value, copilot.value, fuelLevel.value, cargoLevel.value);
 
     })
 
@@ -115,7 +93,8 @@ window.addEventListener("load", function() {
        // call addDestination info with the array from the pickPlanet function
        console.log(chosenPlanet.name);
     
-       addDestinationInfo("document", chosenPlanet.name, chosenPlanet.diameter, chosenPlanet.star, chosenPlanet.distance, chosenPlanet.moons, chosenPlanet.imageUrl);
+       addDestinationInfo(missionTarget, chosenPlanet.name, chosenPlanet.diameter, chosenPlanet.star, chosenPlanet.distance, chosenPlanet.moons, chosenPlanet.image);
+
    });
 
 });
